@@ -23,4 +23,26 @@
         <source-file src="src/android/CCoapUtils.java" target-dir="src/cordova/plugin/ccoap/CCoap" />
         <source-file src="src/android/org/ws4d" target-dir="app/src/main/java/org"/>
     </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="CCoap">
+                <param name="ios-package" value="CCoap" onload="true" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CCoap.h" />
+        <source-file src="src/ios/CCoap.m" />
+        <header-file src="src/ios/CCoapRequest.h" />
+        <source-file src="src/ios/CCoapRequest.m" />
+        <header-file src="src/ios/CCoapUtils.h" />
+        <source-file src="src/ios/CCoapUtils.m" />
+        <header-file src="src/ios/iCoAP/GCDAsyncUdpSocket.h" />
+        <source-file src="src/ios/iCoAP/GCDAsyncUdpSocket.m" />
+        <header-file src="src/ios/iCoAP/ICoAPExchange.h" />
+        <source-file src="src/ios/iCoAP/ICoAPExchange.m" />
+        <header-file src="src/ios/iCoAP/ICoAPMessage.h" />
+        <source-file src="src/ios/iCoAP/ICoAPMessage.m" />
+        <header-file src="src/ios/iCoAP/NSString+hex.h" />
+        <source-file src="src/ios/iCoAP/NSString+hex.m" />
+    </platform>
 </plugin>
