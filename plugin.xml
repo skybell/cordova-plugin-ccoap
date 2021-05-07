@@ -24,9 +24,10 @@
         <source-file src="src/android/org/ws4d" target-dir="app/src/main/java/org"/>
     </platform>
     <platform name="ios">
-        <config-file parent="/*" target="res/xml/config.xml">
+        <config-file target="config.xml" parent="/*" >
             <feature name="CCoap">
-                <param name="ios-package" value="CCoap" onload="true" />
+                <param name="ios-package" value="CCoap"/>
+                <param name="onload" value="true" />
             </feature>
         </config-file>
 
