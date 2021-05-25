@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-ccoap" version="0.4.0" 
+<plugin id="cordova-plugin-ccoap" version="0.4.1" 
     xmlns="http://apache.org/cordova/ns/plugins/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>CCoap</name>
@@ -29,21 +29,21 @@
                 <param name="ios-package" value="CCoap"/>
                 <param name="onload" value="true" />
             </feature>
+
+            <preference name="SwiftVersion" value="5" />
         </config-file>
 
-        <header-file src="src/ios/CCoap.h" />
-        <source-file src="src/ios/CCoap.m" />
-        <header-file src="src/ios/CCoapRequest.h" />
-        <source-file src="src/ios/CCoapRequest.m" />
-        <header-file src="src/ios/CCoapUtils.h" />
-        <source-file src="src/ios/CCoapUtils.m" />
-        <header-file src="src/ios/iCoAP/GCDAsyncUdpSocket.h" />
-        <source-file src="src/ios/iCoAP/GCDAsyncUdpSocket.m" />
-        <header-file src="src/ios/iCoAP/ICoAPExchange.h" />
-        <source-file src="src/ios/iCoAP/ICoAPExchange.m" />
-        <header-file src="src/ios/iCoAP/ICoAPMessage.h" />
-        <source-file src="src/ios/iCoAP/ICoAPMessage.m" />
-        <header-file src="src/ios/iCoAP/NSString+hex.h" />
-        <source-file src="src/ios/iCoAP/NSString+hex.m" />
+        <header-file src="src/ios/CCoap-Bridging-Header.h" type="BridgingHeader" />
+        <header-file src="src/ios/GCDAsyncUdpSocket.h" />
+        <source-file src="src/ios/GCDAsyncUdpSocket.m" />
+        <source-file src="src/ios/CCoap.swift" />
+        <source-file src="src/ios/CCoapRequest.swift" />
+        <source-file src="src/ios/SCClient.swift" />
+        <source-file src="src/ios/SCMessage.swift" />
+        <source-file src="src/ios/SCServer.swift" />
+
+
+        <!-- Add in the swift-support plugin by default -->
+        <dependency id="cordova-plugin-add-swift-support" version="1.7.2"/>
     </platform>
 </plugin>
