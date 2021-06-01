@@ -176,6 +176,7 @@ extension CCoap : SCClientDelegate {
     func swiftCoapClient(_ client: SCClient, didFailWithError error: NSError) {
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Exchangs has failed")
         
+        print("coap client failed with error: \(error)")
         self.commandDelegate!.send(pluginResult, callbackId: callbackId)
     }
     
