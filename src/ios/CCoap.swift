@@ -65,9 +65,16 @@ extension CCoap {
         
         client = SCClient(delegate: self)
         client?.sendToken = true
-        client?.autoBlock1SZX = 2
+        client?.autoBlock1SZX = 6
+        //fiddler proxy setting
+        //client?.httpProxyingData = ("192.168.1.5", 8866)
         
-        let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: request.getPayload().data(using: String.Encoding.utf8))
+        let requestCode = request.getRequestMethodSCCodeValue()
+        let message = SCMessage(code: requestCode, type: .confirmable, payload: nil)
+        
+        if let payload = request.getPayload() {
+            message.payload = payload.data(using: String.Encoding.utf8)
+        }
         
         if let uriPath = request.getUriPath(),
            let uriData = uriPath.data(using: String.Encoding.utf8) {
@@ -92,6 +99,7 @@ extension CCoap {
                             break
                         case "Content-Format":
                             if let intData = optionValue as? Int {
+                                print("Content format: \(intData)")
                                 value = String(intData).data(using: .utf8)
                             }
                             break
@@ -121,26 +129,6 @@ extension CCoap {
                 }
                 
                 print("\(optionName) brings value type \(optionValue)")
-               /*valueData = optionValue.data(using: String.Encoding.utf8) {
-                switch name {
-                case "Accept":
-                    message.addOption(SCOption.accept.rawValue, data: uriData)
-                    break
-                case "Content-Format":
-                    message.addOption(SCOption.contentFormat.rawValue, data: valueData)
-                    break
-                case "ETag":
-                    message.addOption(SCOption.etag.rawValue, data: valueData)
-                    break
-                case "If-None-Match":
-                    message.addOption(SCOption.ifNoneMatch.rawValue, data: valueData)
-                    break
-                case "If-Match":
-                    message.addOption(SCOption.ifMatch.rawValue, data: valueData)
-                    break
-                default:
-                    break
-                }*/
             }
         }
         
@@ -165,18 +153,21 @@ extension CCoap : SCClientDelegate {
         responseDict["code"] = message.code.toRawValue()
         responseDict["options"] = message.options
         
+        print("response dictionary: \(responseDict)")
+        
         // Set the plugin result to fail.
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: responseDict)
         
+        print("communication has been received")
         // Send the function result back to Cordova.
         self.commandDelegate!.send(pluginResult, callbackId: callbackId)
         
     }
     
     func swiftCoapClient(_ client: SCClient, didFailWithError error: NSError) {
-        let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Exchangs has failed")
+        print("Exchange with error \(error.debugDescription)")
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: error.debugDescription)
         
-        print("coap client failed with error: \(error)")
         self.commandDelegate!.send(pluginResult, callbackId: callbackId)
     }
     

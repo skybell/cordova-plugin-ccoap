@@ -33,9 +33,9 @@ extension CCoapRequest {
         return UInt16(port)
     }
     
-    func getPayload() -> String {
+    func getPayload() -> String? {
         guard let payload = self["payload"] as? String else {
-            return ""
+            return nil
         }
         
         return payload
@@ -57,5 +57,23 @@ extension CCoapRequest {
         }
         
         return url.path.replacingOccurrences(of: "/", with: "")
+    }
+    
+    func getRequestMethodSCCodeValue() -> SCCodeValue {
+        guard let method = self["method"] as? String else {
+            print("")
+            return SCCodeValue(classValue: 0, detailValue: 01)!
+        }
+        
+        switch method.lowercased() {
+        case "post":
+            return SCCodeValue(classValue: 0, detailValue: 02)!
+        case "put":
+            return SCCodeValue(classValue: 0, detailValue: 03)!
+        case "delete":
+            return SCCodeValue(classValue: 0, detailValue: 04)!
+        default:
+            return SCCodeValue(classValue: 0, detailValue: 01)!
+        }
     }
 }
