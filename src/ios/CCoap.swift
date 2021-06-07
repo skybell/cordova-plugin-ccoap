@@ -150,8 +150,9 @@ extension CCoap : SCClientDelegate {
             }
         }
         
-        responseDict["code"] = message.code.toRawValue()
-        responseDict["options"] = message.options
+        responseDict["code"] = message.code.toCodeString()
+        //Todo maybe extract this later
+        //responseDict["options"] = message.options
         
         print("response dictionary: \(responseDict)")
         

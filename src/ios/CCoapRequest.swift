@@ -34,7 +34,8 @@ extension CCoapRequest {
     }
     
     func getPayload() -> String? {
-        guard let payload = self["payload"] as? String else {
+        guard let payload = self["payload"] as? String,
+              payload != "" else {
             return nil
         }
         

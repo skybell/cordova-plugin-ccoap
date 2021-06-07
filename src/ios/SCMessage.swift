@@ -511,6 +511,10 @@ struct SCCodeValue: Equatable {
         return String(format: "%i.%02d", classValue, detailValue)
     }
     
+    func toCodeString() -> String {
+        return String(format: "%i%02d", classValue, detailValue)
+    }
+    
     func requestString() -> String? {
         switch self {
         case SCCodeValue(classValue: 0, detailValue: 01)!:
